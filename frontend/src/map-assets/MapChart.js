@@ -6,8 +6,11 @@ import {
   Marker,
 } from "react-simple-maps";
 
-const geoUrl = "./Laguna.json";
+const geoUrl =
+  "https://raw.githubusercontent.com/ridiculoys/cs173-project/feature/home/frontend/src/map-assets/Laguna.json";
 
+// const geoUrl =
+//   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 const markers = [
   {
     markerOffset: -30,
@@ -39,15 +42,19 @@ const MapChart = () => {
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
           geographies
-            .filter((d) => d.properties.REGION_UN === "Americas")
-            .map((geo) => (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill="#EAEAEC"
-                stroke="#D6D6DA"
-              />
-            ))
+            .filter((d) => d.properties.REGION === "CALABARZON (Region IV-A)")
+            // .filter((d) => d.properties.REGION_UN === "Americas")
+            .map((geo) => {
+              console.log(geo);
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill="#111111"
+                  stroke="#00a2ff"
+                />
+              );
+            })
         }
       </Geographies>
       {markers.map(({ name, coordinates, markerOffset }) => (
