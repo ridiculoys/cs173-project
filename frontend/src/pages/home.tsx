@@ -130,15 +130,7 @@ export default function Home() {
 
   return (
     <>
-      <NavigationBar />
-      <Container
-        mt="6rem"
-        minW="full"
-        border="2px"
-        borderColor="red.500"
-        overflow="scroll"
-        p={2}
-      >
+      <Container mt="6rem" minW="full" overflow="scroll" p={2}>
         <title>Home</title>
         <Box>
           <Heading
@@ -162,6 +154,11 @@ export default function Home() {
               {vaccination_sites.map((site, key) => {
                 return (
                   <TabPanel key={key}>
+                    <Box>Vaccination Heatmap:</Box>
+                    <Box>
+                      {" "}
+                      Greener boxes indicate lower appointments for the day.
+                    </Box>
                     <Box
                       m={2}
                       textAlign="center"
