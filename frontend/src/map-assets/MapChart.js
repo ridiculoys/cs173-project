@@ -7,7 +7,7 @@ import {
 } from "react-simple-maps";
 
 const geoUrl =
-  "https://raw.githubusercontent.com/ridiculoys/cs173-project/feature/home/frontend/src/map-assets/Laguna.json";
+  "https://raw.githubusercontent.com/ridiculoys/cs173-project/feature/home/frontend/src/map-assets/Laguna2.json";
 
 // const geoUrl =
 //   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
@@ -32,18 +32,11 @@ const markers = [
 
 const MapChart = () => {
   return (
-    <ComposableMap
-      projection="geoAzimuthalEqualArea"
-      projectionConfig={{
-        rotate: [58, 20, 0],
-        scale: 400,
-      }}
-    >
+    <ComposableMap projection="geoAzimuthalEqualArea">
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
           geographies
             .filter((d) => d.properties.REGION === "CALABARZON (Region IV-A)")
-            // .filter((d) => d.properties.REGION_UN === "Americas")
             .map((geo) => {
               console.log(geo);
               return (

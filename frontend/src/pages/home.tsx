@@ -18,13 +18,18 @@ import {
   TabPanel,
   Grid,
   useDisclosure,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/react";
 import vaccine from "../assets/vaccine.jpg";
 import vaccine2 from "../assets/vaccine2.jpg";
 import vaccine3 from "../assets/vaccine3.jpg";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Fade, ScaleFade, Slide, SlideFade } from "@chakra-ui/react";
+import { SlideFade } from "@chakra-ui/react";
+import HeatMap from "react-heatmap-grid";
+import { Footer } from "../components/Footer";
+
+import MapChart from "../map-assets/MapChart";
 
 const announcements: {
   imageUrl: any;
@@ -91,22 +96,37 @@ const vaccination_sites: {
 ];
 
 export default function Home() {
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(3);
-  const { isOpen, onOpen } = useDisclosure({
+  const { isOpen } = useDisclosure({
     defaultIsOpen: true,
   });
+  const { toggleColorMode } = useColorMode();
+  const formBackground = useColorModeValue("gray.100", "gray.700");
+
   const datenow = new Date();
 
-  const newsDate = new Date(
-    datenow.getFullYear(),
-    datenow.getMonth(),
-    datenow.getDate() - 3
-  );
+  const createDate = (offset) => {
+    return new Date(
+      datenow.getFullYear(),
+      datenow.getMonth(),
+      datenow.getDate() + offset
+    );
+  };
 
-  useEffect(() => {
-    console.log(`${start} to ${end}`);
-  }, [start, end]);
+  const newsDate = createDate(-3).toDateString();
+
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const yLabels = new Array(4).fill(0).map((_, i) => `Week ${i + 1}`);
+  const xLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const data = new Array(yLabels.length)
+    .fill(0)
+    .map(() =>
+      new Array(xLabels.length)
+        .fill(0)
+        .map(() => Math.floor(Math.random() * 100))
+    );
 
   return (
     <>
@@ -131,17 +151,60 @@ export default function Home() {
           </Heading>
 
           {/* Lazy loaded, initial focus to first tab. */}
-          <Tabs isLazy defaultIndex={1}>
+
+          <Tabs isLazy defaultIndex={0}>
             <TabList>
               {vaccination_sites.map((site, key) => {
-                return <Tab> {site.name} </Tab>;
+                return <Tab key={key}> {site.name} </Tab>;
               })}
             </TabList>
             <TabPanels>
-              <TabPanel>
-                <p>one!</p>
-              </TabPanel>
-              <TabPanel></TabPanel>
+              {vaccination_sites.map((site, key) => {
+                return (
+                  <TabPanel key={key}>
+                    <Box
+                      m={2}
+                      textAlign="center"
+                      d="flex"
+                      justifyContent="center"
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: "bold",
+                        fontFamily: "font-family: 'Trebuchet MS', sans-serif;",
+                      }}
+                      suppressHydrationWarning
+                    >
+                      <HeatMap
+                        xLabels={xLabels}
+                        yLabels={yLabels}
+                        xLabelsLocation={"bottom"}
+                        xLabelWidth={60}
+                        data={data}
+                        squares
+                        height={45}
+                        onClick={(x, y) => alert(`Clicked ${x}, ${y}`)}
+                        cellStyle={(
+                          background,
+                          value,
+                          min,
+                          max,
+                          data,
+                          x,
+                          y
+                        ) => ({
+                          background: `rgb(0, 163, 27, ${
+                            (max - value) / (max - min)
+                          })`,
+                          fontSize: "11.5px",
+                          fontWeight: "none",
+                          color: "#444",
+                        })}
+                        cellRender={(value) => value && <div>{value}</div>}
+                      />
+                    </Box>
+                  </TabPanel>
+                );
+              })}
             </TabPanels>
           </Tabs>
         </Box>
@@ -151,32 +214,15 @@ export default function Home() {
           fontWeight="700"
           pb={["15px", "20px", "30px"]}
         >
-          ANNOUNCEMENTS
+          Announcements
         </Heading>
         <Flex
+          flexWrap="wrap"
           flexDirection={["column", "column", "row"]}
           alignItems="center"
           justifyContent="center"
         >
-          {start - 3 >= 0 ? (
-            <IconButton
-              colorScheme="blue"
-              aria-label="Previous"
-              size="lg"
-              position="fixed"
-              left="10px"
-              onClick={() => {
-                setStart(start - 3);
-                setEnd(end - 3);
-                onOpen();
-                console.log(`start`);
-              }}
-              icon={<ArrowLeftIcon />}
-            />
-          ) : (
-            <></>
-          )}
-          {announcements.slice(start, end).map((announcement, key) => {
+          {announcements.slice(0, 3).map((announcement, key) => {
             return (
               <SlideFade
                 in={isOpen}
@@ -191,10 +237,13 @@ export default function Home() {
                   borderRadius="lg"
                   m={3}
                 >
-                  <Image
-                    src={announcement.imageUrl}
-                    alt={announcement.imageAlt}
-                  />
+                  <Box maxH="300px" overflow="hidden">
+                    <Image
+                      src={announcement.imageUrl}
+                      alt={announcement.imageAlt}
+                      objectFit="cover"
+                    />
+                  </Box>
 
                   <Box p="6">
                     <Box d="flex" alignItems="baseline">
@@ -209,7 +258,7 @@ export default function Home() {
                         textTransform="uppercase"
                         ml="2"
                       >
-                        {key + 1} &bull; {newsDate.toDateString()}
+                        {key + 1} &bull; {newsDate}
                       </Box>
                     </Box>
 
@@ -237,25 +286,9 @@ export default function Home() {
               </SlideFade>
             );
           })}
-          {end < announcements.length ? (
-            <IconButton
-              colorScheme="blue"
-              aria-label="Next"
-              size="lg"
-              position="fixed"
-              right="40px"
-              onClick={() => {
-                setStart(start + 3);
-                setEnd(end + 3);
-                onOpen();
-              }}
-              icon={<ArrowRightIcon />}
-            />
-          ) : (
-            <></>
-          )}
         </Flex>
       </Container>
+      <Footer />
     </>
   );
 }
