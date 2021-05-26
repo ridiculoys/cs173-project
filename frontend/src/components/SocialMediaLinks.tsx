@@ -6,19 +6,19 @@ export const SocialMediaLinks = (props: ButtonGroupProps) => (
   <ButtonGroup variant="ghost" color="gray.600" {...props}>
     <IconButton
       as="a"
-      href="#"
-      aria-label="Messenger"
+      href="https://www.messenger.com/UPLBOfficial"
+      aria-label="Facebook Messenger"
       icon={<FaFacebookMessenger fontSize="20px" />}
     />
     <IconButton
       as="a"
-      href="#"
+      href="https://www.facebook.com/UPLBOfficial"
       aria-label="Facebook"
       icon={<FaFacebook fontSize="20px" />}
     />
     <IconButton
       as="a"
-      href="#"
+      href="https://twitter.com/UPLBOfficial"
       aria-label="Twitter"
       icon={<FaTwitter fontSize="20px" />}
     />
