@@ -16,9 +16,12 @@ import {
   Textarea,
   Button,
   Center,
+  Stack,
+  Select,
 } from "@chakra-ui/react";
 import { SlideFade } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
+import DatePicker from "../components/date-picker";
 
 const vaccination_sites: {
   name: string;
@@ -43,46 +46,69 @@ const vaccination_sites: {
 ];
 
 export default function Appointment() {
+  const [date, setDate] = useState(null);
 
+  function onDateChange(e) {
+    setDate(e)
+  }
 
   return (
     <>
+      <NavigationBar />
       <Container mt="6rem" minW="full" overflow="scroll" p={2}>
-        <title>Home</title>
-        <NavigationBar />
-          <Heading
-            textAlign={["center", "left"]}
-            fontSize={["20px", "35px", "40px"]}
-            fontWeight="700"
-            pb={["15px", "20px", "30px"]}
-          >
-            Appointment
-          </Heading>
+        <title>Appointment</title>
+        <Box pb={20}>
+          <Stack spacing={0} align={"center"}>
+            <Heading>Appointment</Heading>
+            <Text textAlign="center">
+              {" "}
+              <br />
+              Fill up the form to request for a vaccination appointment.
+              {" "}
+            </Text>
+          </Stack>
+        </Box>
 
-          <Center>
-            <Box
-              w="70%"
-              p={20}
-              m={10}
-              bg="beige"
-              borderRadius="2xl"
-              minW="xs"
-              color="gray.900"
-              textAlign={["center"]}
-            >
+        <Center>
+          <Box
+            minWidth={500}
+            maxWidth={800}
+            p={10}
+            bg="beige"
+            borderRadius="3xl"
+            minW="xs"
+            color="gray.900"
+            textAlign="center"
+            align={"center"}
+          >
+            <Stack maxwidth={800} spacing={10} align={"center"} alignItems={"center"}>
               <Heading
                 textAlign={["center"]}
-                fontSize={["20px"]}
+                fontSize={["3xl"]}
               >
                 Request Vaccination Appointment
+                <br />
+                <br />
               </Heading>
-              <FormControl>
+              <FormControl isRequired >
                 <FormLabel as="legend">Vaccination Facility</FormLabel>
-                
+                <Select variant="outline">
+                  {vaccination_sites.map((site,key) => {
+                     return (
+                      <option key={key} value={site.name.toString().toLowerCase()}>{site.name}</option>
+                     )
+                  }
+                  )}
+                </Select>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel as="legend">Choose Appointment Date</FormLabel>
-
+                <DatePicker
+                    id="published-date"
+                    selectedDate={date}
+                    onChange={onDateChange}
+                    showPopperArrow={true}
+                  />
                 <FormHelperText>
                   Note: The appointment you have chosen is not a guarantee that you will be given that slot.
                   The request will still be processed and reviewed by the medical workers administering the vaccines.
@@ -97,103 +123,16 @@ export default function Appointment() {
                   size="md"
                 />
               </FormControl>
-              <Button
-                mb={6}
-                colorScheme="green"
-                aria-label="Submit"
-              >
-                Submit
-              </Button>
+                <Button
+                  mb={6}
+                  colorScheme="green"
+                  aria-label="Submit"
+                >
+                  Submit
+                </Button>
+              </Stack>
             </Box>
           </Center>
-
-          <Divider orientation="horizontal" />
-
-          <Heading
-            textAlign={["center", "left"]}
-            fontSize={["20px", "35px", "40px"]}
-            fontWeight="700"
-            pb={["15px", "20px", "30px"]}
-          >
-            Medical Information
-          </Heading>
-            <Text fontSize="md" colorScheme="gray.100">
-              Confirm Medical Information
-            </Text>
-
-          {/* Insert Medical Information Here */}
-        
-        {/* <Flex
-          flexWrap="wrap"
-          flexDirection={["column", "column", "row"]}
-          alignItems="center"
-          justifyContent="center"
-        >
-          {announcements.slice(0, 3).map((announcement, key) => {
-            return (
-              <SlideFade
-                in={isOpen}
-                unmountOnExit={true}
-                offsetY={200}
-                key={key}
-              >
-                <Box
-                  minW={["xs", "sm", "md"]}
-                  maxW={["xs", "sm", "lg"]}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  m={3}
-                >
-                  <Box maxH="300px" overflow="hidden">
-                    <Image
-                      src={announcement.imageUrl}
-                      alt={announcement.imageAlt}
-                      objectFit="cover"
-                    />
-                  </Box>
-
-                  <Box p="6">
-                    <Box d="flex" alignItems="baseline">
-                      <Badge borderRadius="full" px="2" colorScheme="teal">
-                        NEW
-                      </Badge>
-                      <Box
-                        color="gray.500"
-                        fontWeight="semibold"
-                        letterSpacing="wide"
-                        fontSize="xs"
-                        textTransform="uppercase"
-                        ml="2"
-                      >
-                        {key + 1} &bull; {newsDate}
-                      </Box>
-                    </Box>
-
-                    <Box
-                      mt="1"
-                      fontWeight="semibold"
-                      as="h4"
-                      lineHeight="tight"
-                      textColor="gray.900"
-                      fontSize={["md", "lg"]}
-                    >
-                      {announcement.title}
-                    </Box>
-
-                    <Box
-                      textColor="gray.500"
-                      fontSize={["sm", "md"]}
-                      textAlign="justify"
-                      mt={2}
-                    >
-                      {announcement.content}
-                    </Box>
-                  </Box>
-                </Box>
-              </SlideFade>
-            );
-          })}
-        </Flex> */}
       </Container>
       <Footer />
     </>
