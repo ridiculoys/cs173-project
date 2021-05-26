@@ -1,154 +1,133 @@
+import { ReactNode } from 'react';
 import {
-  useColorMode,
-  Switch,
+  Box,
   Flex,
-  Button,
+  Avatar,
+  HStack,
+  Link,
   IconButton,
-  Icon,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useDisclosure,
+  useColorModeValue,
+  Stack,
+  Image,
+  useColorMode
+} from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon, MoonIcon } from '@chakra-ui/icons';
 import NextLink from "next/link";
+import logo from "./../assets/uplb-logo-name.png";
 
-export const NavigationBar = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const isDark = colorMode === "dark";
-  const [display, changeDisplay] = useState("none");
+const Links = ['Home', 'Appointment', 'About'];
+
+const NavLink = ({ children }: { children: ReactNode }) => (
+  <NextLink href={'/' + children.toString().toLowerCase()} passHref>
+    <Link
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('gray.200', 'gray.700'),
+      }}
+    >
+    {children === 'About' ? 'About Us' : children}
+    </Link>
+  </NextLink>
+);
+
+export function NavigationBar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode()
+  const isDark = colorMode === 'dark'
 
   return (
-    <Flex zIndex="3">
-      <Flex pos="fixed" top="0.25rem" right="1rem" align="center">
-        <Flex display={["none", "none", "flex", "flex"]}>
-          <NextLink href="/home" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Home"
-              my={5}
-              mx={3}
-              px={5}
-              w="100%"
-            >
-              Home
-            </Button>
-          </NextLink>
-
-          <NextLink href="/appointment" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Appointment"
-              my={5}
-              px={12}
-              w="100%"
-            >
-              Appointment
-            </Button>
-          </NextLink>
-
-          <NextLink href="/profile" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Profile"
-              my={5}
-              mx={3}
-              px={5}
-              w="100%"
-            >
-              Profile
-            </Button>
-          </NextLink>
-
-          <NextLink href="/" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Logout"
-              my={5}
-              mr={5}
-              w="100%"
-              colorScheme="red"
-            >
-              Logout
-            </Button>
-          </NextLink>
-        </Flex>
-
-        <IconButton
-          aria-label="Open Menu"
-          size="lg"
-          mr={2}
-          icon={<HamburgerIcon />}
-          display={["flex", "flex", "none", "none"]}
-          onClick={() => changeDisplay("flex")}
-        />
-
-        <Switch color="green" isChecked={isDark} onChange={toggleColorMode} />
-      </Flex>
-
-      <Flex
-        w="100vw"
-        bgColor="gray.50"
-        zIndex={20}
-        h="100vh"
-        pos="fixed"
-        top="0"
-        left="0"
-        overflowY="auto"
-        flexDir="column"
-        display={display}
-      >
-        <Flex justify="flex-end">
+    <>
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
-            mt={2}
-            mr={2}
-            aria-label="Close Menu"
-            size="lg"
-            icon={<CloseIcon />}
-            onClick={() => changeDisplay("none")}
+            size={'md'}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label={'Open Menu'}
+            display={{ md: 'none' }}
+            onClick={isOpen ? onClose : onOpen}
           />
+          <HStack spacing={8} alignItems={'center'}>
+            <Box>
+              <Image
+                src={logo}
+                alt={`UPLB Logo`}
+                objectFit="cover"
+                height="3rem"
+                width="auto"
+              />
+            </Box>
+            <HStack
+              as={'nav'}
+              spacing={4}
+              display={{ base: 'none', md: 'flex' }}>
+              {Links.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
+            </HStack>
+          </HStack>
+          <Flex alignItems={'center'}>
+            <Button
+              variant={'solid'}
+              colorScheme={'teal'}
+              size={'sm'}
+              mr={4}
+              leftIcon={<MoonIcon />}
+              onClick={toggleColorMode}>
+              Mode
+            </Button>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}>
+                <Avatar
+                  size={'sm'}
+                  src={
+                    'https://i.dlpng.com/static/png/6616485_preview.png'
+                  }
+                />
+              </MenuButton>
+              <MenuList>
+                <NextLink href="/profile" passHref>
+                  <MenuItem>
+                      Profile
+                  </MenuItem>
+                </NextLink>
+                <NextLink href="/settings" passHref>
+                  <MenuItem>Settings</MenuItem>
+                </NextLink>
+                <MenuDivider />
+                <NextLink href="/" passHref>
+                  <MenuItem>Logout</MenuItem>
+                </NextLink>
+              </MenuList>
+            </Menu>
+          </Flex>
         </Flex>
 
-        <Flex flexDir="column" align="center">
-          <NextLink href="/home" passHref>
-            <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-              Home
-            </Button>
-          </NextLink>
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4}>
+              {Links.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
+            </Stack>
+          </Box>
+        ) : null}
+      </Box>
 
-          <NextLink href="/appointment" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Appointment"
-              my={5}
-              w="100%"
-            >
-              Appointment
-            </Button>
-          </NextLink>
-
-          <NextLink href="/profile" passHref>
-            <Button as="a" variant="ghost" aria-label="Profile" my={5} w="100%">
-              Profile
-            </Button>
-          </NextLink>
-
-          <NextLink href="/" passHref>
-            <Button
-              as="a"
-              variant="ghost"
-              aria-label="Logout"
-              my={5}
-              w="100%"
-              colorScheme="red"
-            >
-              Logout
-            </Button>
-          </NextLink>
-        </Flex>
-      </Flex>
-    </Flex>
+      {/* <Box p={4}>Main Content Here</Box> */}
+    </>
   );
-};
+}
