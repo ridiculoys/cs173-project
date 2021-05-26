@@ -8,6 +8,7 @@ import {
   Text,
   Box,
   Square,
+  Stack,
   Badge,
   Image,
   Heading,
@@ -16,7 +17,6 @@ import {
   TabList,
   TabPanels,
   TabPanel,
-  Grid,
   useDisclosure,
   useColorMode,
   useColorModeValue,
@@ -26,11 +26,32 @@ import vaccine from "../assets/vaccine.jpg";
 import vaccine2 from "../assets/vaccine2.jpg";
 import vaccine3 from "../assets/vaccine3.jpg";
 import { SlideFade } from "@chakra-ui/react";
-import HeatMap from "react-heatmap-grid";
+import { Calendar } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import { Footer } from "../components/Footer";
+import { FeatureContainer } from "../components/Features";
+import { FcAbout, FcPlus, FcAssistant } from "react-icons/fc";
+import copeland from "./../assets/copeland.jpg";
+import copeland2 from "./../assets/copeland2.jpg";
 
-import MapChart from "../map-assets/MapChart";
-
+const features: { icon: any; title: string; text: string }[] = [
+  {
+    icon: FcPlus,
+    title: "Vaccination Request",
+    text: "Apply for vaccination in the nearest vaccination centers.",
+  },
+  {
+    icon: FcAbout,
+    title: "Vaccination Announcements",
+    text: "Be updated on the latest COVID-19 news and vaccination plans.",
+  },
+  {
+    icon: FcAssistant,
+    title: "Profile assessment",
+    text: "Know your vaccination prioritization through medical information verification",
+  },
+];
 const announcements: {
   imageUrl: any;
   imageAlt: string;
@@ -84,14 +105,16 @@ const announcements: {
 
 const vaccination_sites: {
   name: string;
-  mapDetails1?: string;
+  img?: any;
   mapDetails2?: string;
 }[] = [
   {
     name: "Copeland Gymnasium",
+    img: copeland,
   },
   {
     name: "UPLB Main Library",
+    img: copeland2,
   },
 ];
 
@@ -104,44 +127,49 @@ export default function Home() {
 
   const datenow = new Date();
 
+  //Create random disabled dates.
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max) + 2;
+  }
+
   const createDate = (offset) => {
     return new Date(
       datenow.getFullYear(),
       datenow.getMonth(),
-      datenow.getDate() + offset
+      datenow.getDate() + getRandomInt(offset)
     );
+  };
+
+  const dt = new Date();
+  const month = dt.getMonth();
+  const year = dt.getFullYear();
+  const daysInMonth = new Date(year, month, 0).getDate();
+
+  const generateDisabledDates = () => {
+    return [
+      createDate(daysInMonth * 2 - datenow.getDate()),
+      createDate(daysInMonth * 2 - datenow.getDate()),
+      createDate(daysInMonth * 2 - datenow.getDate()),
+      createDate(daysInMonth * 2 - datenow.getDate()),
+    ];
   };
 
   const newsDate = createDate(-3).toDateString();
 
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
-
-  const yLabels = new Array(4).fill(0).map((_, i) => `Week ${i + 1}`);
-  const xLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const data = new Array(yLabels.length)
-    .fill(0)
-    .map(() =>
-      new Array(xLabels.length)
-        .fill(0)
-        .map(() => Math.floor(Math.random() * 100))
-    );
-
   return (
     <>
+      <NavigationBar />
       <Container mt="6rem" minW="full" overflow="scroll" p={2}>
         <title>Home</title>
-        <Box>
-          <Heading
-            textAlign={["center", "left"]}
-            fontSize={["20px", "35px", "40px"]}
-            fontWeight="700"
-            pb={["15px", "20px", "30px"]}
-          >
-            Vaccination Sites
-          </Heading>
-
+        <FeatureContainer feature_data={features} />
+        <Box p={20}>
+          <Stack spacing={0} align={"center"}>
+            <Heading>Vaccination Sites</Heading>
+            <Text>
+              {" "}
+              Browse the timeline of vaccination sites around Los Banos.{" "}
+            </Text>
+          </Stack>
           {/* Lazy loaded, initial focus to first tab. */}
 
           <Tabs isLazy defaultIndex={0}>
@@ -154,11 +182,69 @@ export default function Home() {
               {vaccination_sites.map((site, key) => {
                 return (
                   <TabPanel key={key}>
-                    <Box>Vaccination Heatmap:</Box>
-                    <Box>
-                      {" "}
-                      Greener boxes indicate lower appointments for the day.
-                    </Box>
+                    <Stack
+                      py={16}
+                      px={8}
+                      spacing={{ base: 8, md: 10 }}
+                      align={"center"}
+                      direction={"column"}
+                    >
+                      <Text
+                        fontSize={{ base: "xl", md: "2xl" }}
+                        textAlign={"center"}
+                        maxW={"3xl"}
+                      >
+                        {site.name}
+                      </Text>
+                      <Box
+                        textAlign={"center"}
+                        display="flex"
+                        flexWrap="wrap"
+                        justifyContent="center"
+                      >
+                        <Box
+                          maxW={["80%", "60%", "40%"]}
+                          mb={2}
+                          objectFit="contain"
+                          borderRadius="lg"
+                          overflow="hidden"
+                          boxShadow="lg"
+                        >
+                          <Image
+                            src={site.img}
+                            alt={"Jenny Wilson"}
+                            width="100%"
+                            height="100%"
+                          />
+                        </Box>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Calendar
+                            date={new Date()}
+                            disabledDates={generateDisabledDates()}
+                            editableDateInputs={false}
+                            minDate={new Date()}
+                            color="#009183"
+                            supressHydrationWarning
+                          />
+                          <Text fontWeight={600}>
+                            Vaccination site calendar
+                          </Text>
+                          <Text
+                            fontSize={"sm"}
+                            color={useColorModeValue("red.400", "red.400")}
+                            maxW="80%"
+                          >
+                            Disabled days means the day is fully booked for
+                            vaccination appointments.
+                          </Text>
+                        </Box>
+                      </Box>
+                    </Stack>
                     <Box
                       m={2}
                       textAlign="center"
@@ -167,52 +253,22 @@ export default function Home() {
                       style={{
                         fontSize: "13px",
                         fontWeight: "bold",
-                        fontFamily: "font-family: 'Trebuchet MS', sans-serif;",
+                        fontFamily: "font-family: 'Trebuchet MS', sans-serif",
                       }}
-                      suppressHydrationWarning
-                    >
-                      <HeatMap
-                        xLabels={xLabels}
-                        yLabels={yLabels}
-                        xLabelsLocation={"bottom"}
-                        xLabelWidth={60}
-                        data={data}
-                        squares
-                        height={45}
-                        onClick={(x, y) => alert(`Clicked ${x}, ${y}`)}
-                        cellStyle={(
-                          background,
-                          value,
-                          min,
-                          max,
-                          data,
-                          x,
-                          y
-                        ) => ({
-                          background: `rgb(0, 163, 27, ${
-                            (max - value) / (max - min)
-                          })`,
-                          fontSize: "11.5px",
-                          fontWeight: "none",
-                          color: "#444",
-                        })}
-                        cellRender={(value) => value && <div>{value}</div>}
-                      />
-                    </Box>
+                    ></Box>
                   </TabPanel>
                 );
               })}
             </TabPanels>
           </Tabs>
         </Box>
-        <Heading
-          textAlign={["center", "left"]}
-          fontSize={["20px", "35px", "40px"]}
-          fontWeight="700"
-          pb={["15px", "20px", "30px"]}
-        >
-          Announcements
-        </Heading>
+        <Stack spacing={0} align={"center"}>
+          <Heading>Announcements</Heading>
+          <Text>
+            Be updated in the latest announcements about the campus vaccination
+            plans.
+          </Text>
+        </Stack>
         <Flex
           flexWrap="wrap"
           flexDirection={["column", "column", "row"]}
@@ -231,8 +287,10 @@ export default function Home() {
                   minW={["xs", "sm", "md"]}
                   maxW={["xs", "sm", "lg"]}
                   borderWidth="1px"
-                  borderRadius="lg"
+                  borderRadius="xl"
+                  boxShadow="lg"
                   m={3}
+                  overflow="hidden"
                 >
                   <Box maxH="300px" overflow="hidden">
                     <Image
@@ -264,7 +322,6 @@ export default function Home() {
                       fontWeight="semibold"
                       as="h4"
                       lineHeight="tight"
-                      textColor="gray.900"
                       fontSize={["md", "lg"]}
                     >
                       {announcement.title}
