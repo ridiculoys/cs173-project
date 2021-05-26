@@ -55,7 +55,7 @@ export default function Appointment() {
   return (
     <>
       <NavigationBar />
-      <Container mt="6rem" minW="full" overflow="scroll" p={2}>
+      <Container mt="4rem" minW="full" overflow="scroll" p={2}>
         <title>Appointment</title>
         <Box pb={20}>
           <Stack spacing={0} align={"center"}>
@@ -74,7 +74,10 @@ export default function Appointment() {
             minWidth={500}
             maxWidth={800}
             p={10}
+            mb={70}
             bg="beige"
+            boxShadow="lg"
+            shadow="md"
             borderRadius="3xl"
             minW="xs"
             color="gray.900"
@@ -92,7 +95,7 @@ export default function Appointment() {
               </Heading>
               <FormControl isRequired >
                 <FormLabel as="legend">Vaccination Facility</FormLabel>
-                <Select variant="outline">
+                <Select variant="outline" border="1px" borderColor="twitter.900">
                   {vaccination_sites.map((site,key) => {
                      return (
                       <option key={key} value={site.name.toString().toLowerCase()}>{site.name}</option>
@@ -102,14 +105,14 @@ export default function Appointment() {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <FormLabel as="legend">Choose Appointment Date</FormLabel>
-                <DatePicker
-                    id="published-date"
-                    selectedDate={date}
-                    onChange={onDateChange}
-                    showPopperArrow={true}
-                  />
-                <FormHelperText>
+                <FormLabel as="legend">Choose Appointment Date</FormLabel>\
+                  <DatePicker
+                      id="published-date"
+                      selectedDate={date}
+                      onChange={onDateChange}
+                      showPopperArrow={true}
+                    />
+                <FormHelperText color="gray.700">
                   Note: The appointment you have chosen is not a guarantee that you will be given that slot.
                   The request will still be processed and reviewed by the medical workers administering the vaccines.
                 </FormHelperText>
@@ -117,15 +120,16 @@ export default function Appointment() {
               <FormControl>
                 <FormLabel as="legend">Other Information</FormLabel>
                 <Textarea
-                  // value={textValue}
-                  // onChange={handleInputChange}
-                  placeholder="What other information would you want us to know?"
+                  variant="outline"
                   size="md"
+                  border="1px"
+                  borderColor="twitter.900"
                 />
               </FormControl>
                 <Button
-                  mb={6}
                   colorScheme="green"
+                  size="md"
+                  width="30%"
                   aria-label="Submit"
                 >
                   Submit
