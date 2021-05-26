@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import './../../styles/date-picker.css';
 
 function MyApp({ Component, pageProps }) {
   return (
