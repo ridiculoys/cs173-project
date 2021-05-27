@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavigationBar } from "../components/NavigationBar";
+import { StatisticsCard } from "../components/StatisticsCard";
 import {
   Container,
   Text,
@@ -21,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { SlideFade } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
-import DatePicker from "../components/date-picker";
+import DatePicker from "../components/DatePicker";
 
 const vaccination_sites: {
   name: string;
@@ -57,7 +58,7 @@ export default function Appointment() {
       <NavigationBar />
       <Container mt="4rem" minW="full" p={2}>
         <title>Appointment</title>
-        <Box pb={20}>
+        <Box pb={10}>
           <Stack spacing={0} align={"center"}>
             <Heading>Appointment</Heading>
             <Text textAlign="center">
@@ -73,7 +74,7 @@ export default function Appointment() {
             minWidth={500}
             maxWidth={800}
             p={10}
-            mb={70}
+            mb={2}
             bg="beige"
             boxShadow="lg"
             shadow="md"
@@ -137,17 +138,18 @@ export default function Appointment() {
                   borderColor="twitter.900"
                 />
               </FormControl>
-              <Button
-                colorScheme="green"
-                size="md"
-                width="30%"
-                aria-label="Submit"
-              >
-                Submit
-              </Button>
-            </Stack>
-          </Box>
-        </Center>
+                <Button
+                  colorScheme="green"
+                  size="md"
+                  width="30%"
+                  aria-label="Submit"
+                >
+                  Submit
+                </Button>
+              </Stack>
+            </Box>
+          </Center>
+        <StatisticsCard />
       </Container>
       <Footer />
     </>
