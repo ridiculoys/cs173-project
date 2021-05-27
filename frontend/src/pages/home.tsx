@@ -159,13 +159,13 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <Container mt="6rem" minW="full" overflow="scroll" p={2}>
+      <Container mt="6rem" minW="full" p={2}>
         <title>Home</title>
         <FeatureContainer feature_data={features} />
         <Box p={20}>
-          <Stack spacing={0} align={"center"}>
+          <Stack spacing={0} align={"center"} mb={["8"]}>
             <Heading>Vaccination Sites</Heading>
-            <Text>
+            <Text align="center">
               {" "}
               Browse the timeline of vaccination sites around Los Banos.{" "}
             </Text>
@@ -262,9 +262,9 @@ export default function Home() {
             </TabPanels>
           </Tabs>
         </Box>
-        <Stack spacing={0} align={"center"}>
+        <Stack spacing={0} align={"center"} mb={["5", "8"]}>
           <Heading>Announcements</Heading>
-          <Text>
+          <Text align="center">
             Be updated in the latest announcements about the campus vaccination
             plans.
           </Text>
