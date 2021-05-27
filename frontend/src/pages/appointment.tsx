@@ -35,27 +35,27 @@ const vaccination_sites: {
     name: "UPLB Main Library",
   },
   {
-    name: "UPLB University Health Service"
+    name: "UPLB University Health Service",
   },
   {
-    name: "UPD University Health Service"
+    name: "UPD University Health Service",
   },
   {
-    name: "UPD New Gym"
-  }
+    name: "UPD New Gym",
+  },
 ];
 
 export default function Appointment() {
   const [date, setDate] = useState(null);
 
   function onDateChange(e) {
-    setDate(e)
+    setDate(e);
   }
 
   return (
     <>
       <NavigationBar />
-      <Container mt="4rem" minW="full" overflow="scroll" p={2}>
+      <Container mt="4rem" minW="full" p={2}>
         <title>Appointment</title>
         <Box pb={20}>
           <Stack spacing={0} align={"center"}>
@@ -63,8 +63,7 @@ export default function Appointment() {
             <Text textAlign="center">
               {" "}
               <br />
-              Fill up the form to request for a vaccination appointment.
-              {" "}
+              Fill up the form to request for a vaccination appointment.{" "}
             </Text>
           </Stack>
         </Box>
@@ -84,37 +83,49 @@ export default function Appointment() {
             textAlign="center"
             align={"center"}
           >
-            <Stack maxwidth={800} spacing={10} align={"center"} alignItems={"center"}>
-              <Heading
-                textAlign={["center"]}
-                fontSize={["3xl"]}
-              >
+            <Stack
+              maxwidth={800}
+              spacing={10}
+              align={"center"}
+              alignItems={"center"}
+            >
+              <Heading textAlign={["center"]} fontSize={["3xl"]}>
                 Request Vaccination Appointment
                 <br />
                 <br />
               </Heading>
-              <FormControl isRequired >
+              <FormControl isRequired>
                 <FormLabel as="legend">Vaccination Facility</FormLabel>
-                <Select variant="outline" border="1px" borderColor="twitter.900">
-                  {vaccination_sites.map((site,key) => {
-                     return (
-                      <option key={key} value={site.name.toString().toLowerCase()}>{site.name}</option>
-                     )
-                  }
-                  )}
+                <Select
+                  variant="outline"
+                  border="1px"
+                  borderColor="twitter.900"
+                >
+                  {vaccination_sites.map((site, key) => {
+                    return (
+                      <option
+                        key={key}
+                        value={site.name.toString().toLowerCase()}
+                      >
+                        {site.name}
+                      </option>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <FormLabel as="legend">Choose Appointment Date</FormLabel>\
-                  <DatePicker
-                      id="published-date"
-                      selectedDate={date}
-                      onChange={onDateChange}
-                      showPopperArrow={true}
-                    />
+                <FormLabel as="legend">Choose Appointment Date</FormLabel>
+                <DatePicker
+                  id="published-date"
+                  selectedDate={date}
+                  onChange={onDateChange}
+                  showPopperArrow={true}
+                />
                 <FormHelperText color="gray.700">
-                  Note: The appointment you have chosen is not a guarantee that you will be given that slot.
-                  The request will still be processed and reviewed by the medical workers administering the vaccines.
+                  Note: The appointment you have chosen is not a guarantee that
+                  you will be given that slot. The request will still be
+                  processed and reviewed by the medical workers administering
+                  the vaccines.
                 </FormHelperText>
               </FormControl>
               <FormControl>
@@ -126,17 +137,17 @@ export default function Appointment() {
                   borderColor="twitter.900"
                 />
               </FormControl>
-                <Button
-                  colorScheme="green"
-                  size="md"
-                  width="30%"
-                  aria-label="Submit"
-                >
-                  Submit
-                </Button>
-              </Stack>
-            </Box>
-          </Center>
+              <Button
+                colorScheme="green"
+                size="md"
+                width="30%"
+                aria-label="Submit"
+              >
+                Submit
+              </Button>
+            </Stack>
+          </Box>
+        </Center>
       </Container>
       <Footer />
     </>
