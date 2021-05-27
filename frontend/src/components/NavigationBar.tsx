@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 import {
   Box,
   Flex,
@@ -16,51 +16,51 @@ import {
   useColorModeValue,
   Stack,
   Image,
-  useColorMode
-} from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, MoonIcon } from '@chakra-ui/icons';
+  useColorMode,
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon, MoonIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import logo from "./../assets/uplb-logo-name.png";
-import profile from "./../assets/profile.jpg"
+import namelesslogo from "./../assets/uplb-logo.png";
 
-const Links = ['Home', 'Appointment', 'About'];
+const Links = ["Home", "Appointment", "About"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
-  <NextLink href={'/' + children.toString().toLowerCase()} passHref>
+  <NextLink href={"/" + children.toString().toLowerCase()} passHref>
     <Link
       px={2}
       py={1}
-      rounded={'md'}
+      rounded={"md"}
       _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        textDecoration: "none",
+        bg: useColorModeValue("gray.200", "gray.700"),
       }}
     >
-    {children === 'About' ? 'About Us' : children}
+      {children === "About" ? "About Us" : children}
     </Link>
   </NextLink>
 );
 
 export function NavigationBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { colorMode, toggleColorMode } = useColorMode()
-  const isDark = colorMode === 'dark'
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDark = colorMode === "dark";
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
-            size={'md'}
+            size={"md"}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
-            display={{ md: 'none' }}
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
+          <HStack spacing={8} alignItems={"center"}>
             <Box>
               <Image
-                src={logo}
+                src={namelesslogo}
                 alt={`UPLB Logo`}
                 objectFit="cover"
                 height="3rem"
@@ -68,40 +68,41 @@ export function NavigationBar() {
               />
             </Box>
             <HStack
-              as={'nav'}
+              as={"nav"}
               spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
+              display={{ base: "none", md: "flex" }}
+            >
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'}>
+          <Flex alignItems={"center"}>
             <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
+              variant={"solid"}
+              colorScheme={"teal"}
+              size={"sm"}
               mr={4}
               leftIcon={<MoonIcon />}
-              onClick={toggleColorMode}>
+              onClick={toggleColorMode}
+            >
               Mode
             </Button>
             <Menu>
               <MenuButton
                 as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}>
+                rounded={"full"}
+                variant={"link"}
+                cursor={"pointer"}
+              >
                 <Avatar
-                  size={'sm'}
-                  src={profile}
+                  size={"sm"}
+                  src={"https://i.dlpng.com/static/png/6616485_preview.png"}
                 />
               </MenuButton>
               <MenuList>
                 <NextLink href="/profile" passHref>
-                  <MenuItem>
-                      Profile
-                  </MenuItem>
+                  <MenuItem>Profile</MenuItem>
                 </NextLink>
                 <NextLink href="/settings" passHref>
                   <MenuItem>Settings</MenuItem>
@@ -116,8 +117,8 @@ export function NavigationBar() {
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+          <Box pb={4} display={{ md: "none" }}>
+            <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}

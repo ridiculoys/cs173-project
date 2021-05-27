@@ -22,7 +22,9 @@ import {
 } from "@chakra-ui/react";
 import { SlideFade } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
-import DatePicker from "../components/DatePicker";
+import { Calendar } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 
 const vaccination_sites: {
   name: string;
@@ -48,10 +50,6 @@ const vaccination_sites: {
 
 export default function Appointment() {
   const [date, setDate] = useState(null);
-
-  function onDateChange(e) {
-    setDate(e);
-  }
 
   return (
     <>
@@ -116,12 +114,13 @@ export default function Appointment() {
               </FormControl>
               <FormControl isRequired>
                 <FormLabel as="legend">Choose Appointment Date</FormLabel>
-                {/* <DatePicker
-                  id="published-date"
-                  selectedDate={date}
-                  onChange={onDateChange}
-                  showPopperArrow={true}
-                /> */}
+                <Calendar
+                  date={date}
+                  minDate={new Date()}
+                  onChange={(item) => setDate(item)}
+                  color="#009183"
+                  supressHydrationWarning
+                />
                 <FormHelperText color="gray.700">
                   Note: The appointment you have chosen is not a guarantee that
                   you will be given that slot. The request will still be
@@ -138,17 +137,17 @@ export default function Appointment() {
                   borderColor="twitter.900"
                 />
               </FormControl>
-                <Button
-                  colorScheme="green"
-                  size="md"
-                  width="30%"
-                  aria-label="Submit"
-                >
-                  Submit
-                </Button>
-              </Stack>
-            </Box>
-          </Center>
+              <Button
+                colorScheme="green"
+                size="md"
+                width="30%"
+                aria-label="Submit"
+              >
+                Submit
+              </Button>
+            </Stack>
+          </Box>
+        </Center>
         <StatisticsCard />
       </Container>
       <Footer />
