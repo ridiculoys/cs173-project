@@ -21,6 +21,7 @@ import {
 import { HamburgerIcon, CloseIcon, MoonIcon } from '@chakra-ui/icons';
 import NextLink from "next/link";
 import logo from "./../assets/uplb-logo-name.png";
+import profile from "./../assets/profile.jpg"
 
 const Links = ['Home', 'Appointment', 'About'];
 
@@ -93,9 +94,7 @@ export function NavigationBar() {
                 cursor={'pointer'}>
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://i.dlpng.com/static/png/6616485_preview.png'
-                  }
+                  src={profile}
                 />
               </MenuButton>
               <MenuList>
