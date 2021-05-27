@@ -116,12 +116,12 @@ export default function Appointment() {
               </FormControl>
               <FormControl isRequired>
                 <FormLabel as="legend">Choose Appointment Date</FormLabel>
-                <DatePicker
+                {/* <DatePicker
                   id="published-date"
                   selectedDate={date}
                   onChange={onDateChange}
                   showPopperArrow={true}
-                />
+                /> */}
                 <FormHelperText color="gray.700">
                   Note: The appointment you have chosen is not a guarantee that
                   you will be given that slot. The request will still be
