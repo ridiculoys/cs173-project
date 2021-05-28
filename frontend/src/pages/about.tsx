@@ -11,14 +11,14 @@ import {
 import { NavigationBar } from "../components/NavigationBar";
 import { Footer } from "../components/Footer";
 import kuleng_avatar from "../assets/jkbtumpalan_avatar.jpg";
-import loys_avatar from "../assets/lgltalip_avatar.jpg";
+// import loys_avatar from "../assets/lgltalip_avatar.jpg";
 
 const testimonials = [
   {
     name: "Talip, Louise Gabrielle L.",
     role: "Member",
     content: "Lowkey hoping an application like this exists to help the university with student vaccination. It would be accessible and efficient!",
-    avatar: loys_avatar,
+    avatar: kuleng_avatar,
   },
   {
     name: "Tumpalan, John Karl B.",
