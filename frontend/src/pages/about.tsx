@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { NavigationBar } from "../components/NavigationBar";
 import { Footer } from "../components/Footer";
-import kuleng_avatar from "./../assets/jkbtumpalan_avatar.jpg";
-import loys_avatar from "./../assets/lgltalip_avatar.JPG";
+import kuleng_avatar from "../assets/jkbtumpalan_avatar.jpg";
+import loys_avatar from "../assets/lgltalip_avatar.JPG";
 
 const testimonials = [
   {
