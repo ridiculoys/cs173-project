@@ -36,6 +36,7 @@ import copeland from "./../assets/copeland.jpg";
 import copeland2 from "./../assets/copeland2.jpg";
 import upd_gym from "./../assets/upd_gym.jpg";
 import upb from "./../assets/upb.jpg";
+import uhs from "./../assets/uhs.jpg";
 
 const features: { icon: any; title: string; text: string }[] = [
   {
@@ -126,14 +127,16 @@ const vaccination_sites: {
     name: "UPLB Main Library",
     img: copeland2,
   },
+  {
+    name: "UPLB University Health Service",
+    img: uhs,
+  },
 ];
 
 export default function Home() {
   const { isOpen } = useDisclosure({
     defaultIsOpen: true,
   });
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue("gray.100", "gray.700");
 
   const datenow = new Date();
 
