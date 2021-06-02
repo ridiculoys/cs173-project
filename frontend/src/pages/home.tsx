@@ -34,6 +34,8 @@ import { FeatureContainer } from "../components/Features";
 import { FcAbout, FcPlus, FcAssistant } from "react-icons/fc";
 import copeland from "./../assets/copeland.jpg";
 import copeland2 from "./../assets/copeland2.jpg";
+import upd_gym from "./../assets/upd_gym.jpg";
+import upb from "./../assets/upb.jpg";
 
 const features: { icon: any; title: string; text: string }[] = [
   {
@@ -109,7 +111,15 @@ const vaccination_sites: {
   mapDetails2?: string;
 }[] = [
   {
-    name: "Copeland Gymnasium",
+    name: 'UP Baguio Himnasio Amianan',
+    img: upb,
+  },
+  {
+    name: "UPD Gymnasium",
+    img: upd_gym,
+  },
+  {
+    name: "UPLB Copeland Gymnasium",
     img: copeland,
   },
   {
