@@ -112,7 +112,7 @@ const vaccination_sites: {
   mapDetails2?: string;
 }[] = [
   {
-    name: 'UP Baguio Himnasio Amianan',
+    name: "UP Baguio Himnasio Amianan",
     img: upb,
   },
   {
@@ -185,8 +185,8 @@ export default function Home() {
           </Stack>
           {/* Lazy loaded, initial focus to first tab. */}
 
-          <Tabs isLazy defaultIndex={0}>
-            <TabList>
+          <Tabs isLazy isFitted={true} defaultIndex={0}>
+            <TabList overflowX="auto" overflowY="hidden">
               {vaccination_sites.map((site, key) => {
                 return <Tab key={key}> {site.name} </Tab>;
               })}
