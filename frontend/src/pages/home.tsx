@@ -34,6 +34,9 @@ import { FeatureContainer } from "../components/Features";
 import { FcAbout, FcPlus, FcAssistant } from "react-icons/fc";
 import copeland from "./../assets/copeland.jpg";
 import copeland2 from "./../assets/copeland2.jpg";
+import upd_gym from "./../assets/upd_gym.jpg";
+import upb from "./../assets/upb.jpg";
+import uhs from "./../assets/uhs.jpg";
 
 const features: { icon: any; title: string; text: string }[] = [
   {
@@ -109,12 +112,24 @@ const vaccination_sites: {
   mapDetails2?: string;
 }[] = [
   {
-    name: "Copeland Gymnasium",
+    name: "UP Baguio Himnasio Amianan",
+    img: upb,
+  },
+  {
+    name: "UPD Gymnasium",
+    img: upd_gym,
+  },
+  {
+    name: "UPLB Copeland Gymnasium",
     img: copeland,
   },
   {
     name: "UPLB Main Library",
     img: copeland2,
+  },
+  {
+    name: "UPLB University Health Service",
+    img: uhs,
   },
 ];
 
@@ -122,8 +137,6 @@ export default function Home() {
   const { isOpen } = useDisclosure({
     defaultIsOpen: true,
   });
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue("gray.100", "gray.700");
 
   const datenow = new Date();
 
@@ -159,21 +172,21 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <Container mt="6rem" minW="full" overflow="scroll" p={2}>
+      <Container mt="6rem" minW="full" p={2}>
         <title>Home</title>
         <FeatureContainer feature_data={features} />
         <Box p={20}>
-          <Stack spacing={0} align={"center"}>
+          <Stack spacing={0} align={"center"} mb={["8"]}>
             <Heading>Vaccination Sites</Heading>
-            <Text>
+            <Text align="center">
               {" "}
               Browse the timeline of vaccination sites around Los Banos.{" "}
             </Text>
           </Stack>
           {/* Lazy loaded, initial focus to first tab. */}
 
-          <Tabs isLazy defaultIndex={0}>
-            <TabList>
+          <Tabs isLazy isFitted={true} defaultIndex={0}>
+            <TabList overflowX="auto" overflowY="hidden">
               {vaccination_sites.map((site, key) => {
                 return <Tab key={key}> {site.name} </Tab>;
               })}
@@ -262,9 +275,9 @@ export default function Home() {
             </TabPanels>
           </Tabs>
         </Box>
-        <Stack spacing={0} align={"center"}>
+        <Stack spacing={0} align={"center"} mb={["5", "8"]}>
           <Heading>Announcements</Heading>
-          <Text>
+          <Text align="center">
             Be updated in the latest announcements about the campus vaccination
             plans.
           </Text>
