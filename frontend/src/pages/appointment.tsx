@@ -49,35 +49,6 @@ const vaccination_sites: {
 export default function Appointment() {
   const [date, setDate] = useState(null);
 
-  const datenow = new Date();
-
-  //Create random disabled dates.
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max) + 2;
-  }
-
-  const createDate = (offset) => {
-    return new Date(
-      datenow.getFullYear(),
-      datenow.getMonth(),
-      datenow.getDate() + getRandomInt(offset)
-    );
-  };
-
-  const dt = new Date();
-  const month = dt.getMonth();
-  const year = dt.getFullYear();
-  const daysInMonth = new Date(year, month, 0).getDate();
-
-  const generateDisabledDates = () => {
-    return [
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-    ];
-  };
-
   return (
     <>
       <NavigationBar />
@@ -144,7 +115,6 @@ export default function Appointment() {
                 <Calendar
                   date={date}
                   minDate={new Date()}
-                  disabledDates={generateDisabledDates()}
                   onChange={(item) => setDate(item)}
                   color="#009183"
                   supressHydrationWarning
