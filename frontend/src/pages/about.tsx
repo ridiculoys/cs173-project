@@ -12,6 +12,7 @@ import { NavigationBar } from "../components/NavigationBar";
 import { Footer } from "../components/Footer";
 import kuleng_avatar from "../assets/jkbtumpalan_avatar.jpg";
 import loys_avatar from "../assets/lgltalip_avatar.jpg";
+import paolo_avatar from "../assets/pco_avatar.jpg"
 
 const testimonials = [
   {
@@ -28,11 +29,10 @@ const testimonials = [
     avatar: kuleng_avatar,
   },
   {
-    name: "Darcy L.",
-    role: "Movie star",
-    content: "Fill content.",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80",
+    name: "Co, Paolo Justin",
+    role: "Member",
+    content: "I believe that students will gain confidence and peace of mind if there is an accessible application like this.",
+    avatar: paolo_avatar,
   },
   {
     name: "Daniel T.",
