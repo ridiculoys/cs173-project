@@ -30,31 +30,12 @@ import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { Footer } from "../components/Footer";
-import { FeatureContainer } from "../components/Features";
-import { FcAbout, FcPlus, FcAssistant } from "react-icons/fc";
 import copeland from "./../assets/copeland.jpg";
 import copeland2 from "./../assets/copeland2.jpg";
 import upd_gym from "./../assets/upd_gym.jpg";
 import upb from "./../assets/upb.jpg";
 import uhs from "./../assets/uhs.jpg";
 
-const features: { icon: any; title: string; text: string }[] = [
-  {
-    icon: FcPlus,
-    title: "Vaccination Request",
-    text: "Apply for vaccination in the nearest vaccination centers.",
-  },
-  {
-    icon: FcAbout,
-    title: "Vaccination Announcements",
-    text: "Be updated on the latest COVID-19 news and vaccination plans.",
-  },
-  {
-    icon: FcAssistant,
-    title: "Profile assessment",
-    text: "Know your vaccination prioritization through medical information verification",
-  },
-];
 const announcements: {
   imageUrl: any;
   imageAlt: string;
@@ -172,9 +153,8 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <Container mt="6rem" minW="full" p={2}>
+      <Container minW="full" p={2}>
         <title>Home</title>
-        <FeatureContainer feature_data={features} />
         <Box p={20}>
           <Stack spacing={0} align={"center"} mb={["8"]}>
             <Heading>Vaccination Sites</Heading>
