@@ -14,7 +14,7 @@ import {
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { Footer } from "../components/Footer";
-import { FcGoogle } from "react-icons/fc";
+import {FcGoogle, FcUpload} from "react-icons/fc";
 import profilePic from "./../assets/profile-picture.png";
 
 const userInfo: {
@@ -179,6 +179,19 @@ export default function Profile() {
                             </Text>
                         </Stack>
                         <Stack>
+                            <Box
+                                as="button"
+                                bg="lightskyblue"
+                                fontWeight={"semibold"}
+                                fontSize={"lg"}
+                                p={1}
+                                shadow={"s"}
+                                borderRadius={"xl"}
+                                onClick={changeStatus}
+                            >
+                                Already Vaccinated? Upload Verification here
+                                <Icon as={FcUpload} w={5} h={5} ml={1}/>
+                            </Box>
                             <Box
                                 as="button"
                                 bg={color}
