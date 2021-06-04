@@ -19,6 +19,13 @@ import {
   Center,
   Stack,
   Select,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { SlideFade } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
@@ -47,6 +54,7 @@ const vaccination_sites: {
 ];
 
 export default function Appointment() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [date, setDate] = useState(null);
 
   const datenow = new Date();
@@ -77,6 +85,10 @@ export default function Appointment() {
       createDate(daysInMonth * 2 - datenow.getDate()),
     ];
   };
+
+  componentDidUpdate() {
+    
+  }
 
   return (
     <>
@@ -126,6 +138,7 @@ export default function Appointment() {
                   variant="outline"
                   border="1px"
                   borderColor="twitter.900"
+                  isRequired
                 >
                   {vaccination_sites.map((site, key) => {
                     return (
@@ -148,6 +161,7 @@ export default function Appointment() {
                   onChange={(item) => setDate(item)}
                   color="#009183"
                   supressHydrationWarning
+                  isRequired
                 />
                 <FormHelperText color="gray.700">
                   Note: The appointment you have chosen is not a guarantee that
@@ -170,9 +184,28 @@ export default function Appointment() {
                 size="md"
                 width="30%"
                 aria-label="Submit"
+                onClick={onOpen}
               >
                 Submit
               </Button>
+
+              <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Confirm Request</ModalHeader>
+                    <ModalCloseButton/>
+                    <ModalBody>
+                      <Text>
+                        Hello there you
+                      </Text>
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button variant="ghost">Back</Button>
+                      <Button colorScheme="green" mr={3} onClick={onClose}>Confirm</Button>
+                    </ModalFooter>
+                  </ModalContent>
+              </Modal>
             </Stack>
           </Box>
         </Center>
