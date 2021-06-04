@@ -9,6 +9,7 @@ import {
   Image,
   Heading,
   Icon,
+  Button,
 } from "@chakra-ui/react";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -58,29 +59,42 @@ const medicalInfo: {
 }
 
 export default function Profile() {
+    const [status, setStatus] = useState(medicalInfo.vaccinationStatus)
+    const [color, setColor] = useState("salmon")
+    
+    const changeStatus = () => {
+        console.log("here")
+        if (status === medicalInfo.vaccinationStatus) {
+            setStatus("Vaccinated")
+            setColor("green.300")
+        } else {
+        setStatus(medicalInfo.vaccinationStatus)
+        setColor("salmon")
+        }
+    }
 
     return (
         <>
+            <NavigationBar/>
             <Container mt="4rem" minW="full" p={2}>
                 <title>Profile</title>
-                <NavigationBar/>
-                <Box pb={20}>
+                <Box pb={10}>
                     <Stack spacing={0} align={"center"}>
                         <Heading>User Profile</Heading>
                     </Stack>
                 </Box>
                 <Center>
                     <Box
-                     p={10}
-                     mb={70}
-                     bg="lightskyblue"
-                     boxShadow="m"
-                     shadow="m"
-                     borderRadius="3xl"
-                     minW="xl"
-                     maxW="800"
-                     color="gray.900"
-                     align={"center"}
+                        p={10}
+                        mb={70}
+                        bg="beige"
+                        boxShadow="lg"
+                        shadow="md"
+                        borderRadius="3xl"
+                        minW="xl"
+                        maxW="800"
+                        color="gray.900"
+                        align={"center"}
                     >
                         <Stack
                          maxwidth={800}
@@ -165,23 +179,17 @@ export default function Profile() {
                             </Text>
                         </Stack>
                         <Stack>
-                            <Heading
-                                textAlign={"center"}
-                                fontSize={"3xl"}
-                                textDecoration={"underline"}
-                            >
-                                Vaccination Status
-                            </Heading>
                             <Box
-                                bg={"salmon"}
+                                as="button"
+                                bg={color}
                                 fontWeight={"bold"}
                                 fontSize={"2xl"}
                                 p={5}
                                 shadow={"s"}
                                 borderRadius={"xl"}
-                                
+                                onClick={changeStatus}
                             >
-                                <Text>{medicalInfo.vaccinationStatus}</Text>
+                                {status}
                             </Box>
                         </Stack>
                     </Box>

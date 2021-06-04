@@ -25,6 +25,7 @@ import { Footer } from "../components/Footer";
 import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { GiConsoleController } from "react-icons/gi";
 
 const vaccination_sites: {
   name: string;
@@ -47,35 +48,11 @@ const vaccination_sites: {
 ];
 
 export default function Appointment() {
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(null)
+  // const 
 
-  const datenow = new Date();
-
-  //Create random disabled dates.
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max) + 2;
-  }
-
-  const createDate = (offset) => {
-    return new Date(
-      datenow.getFullYear(),
-      datenow.getMonth(),
-      datenow.getDate() + getRandomInt(offset)
-    );
-  };
-
-  const dt = new Date();
-  const month = dt.getMonth();
-  const year = dt.getFullYear();
-  const daysInMonth = new Date(year, month, 0).getDate();
-
-  const generateDisabledDates = () => {
-    return [
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-      createDate(daysInMonth * 2 - datenow.getDate()),
-    ];
+  const handleSubmit = (evt) => {
+    console.log(evt.target.value)
   };
 
   return (
@@ -120,59 +97,61 @@ export default function Appointment() {
                 <br />
                 <br />
               </Heading>
-              <FormControl isRequired>
-                <FormLabel as="legend">Vaccination Facility</FormLabel>
-                <Select
-                  variant="outline"
-                  border="1px"
-                  borderColor="twitter.900"
-                >
-                  {vaccination_sites.map((site, key) => {
-                    return (
-                      <option
-                        key={key}
-                        value={site.name.toString().toLowerCase()}
-                      >
-                        {site.name}
-                      </option>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel as="legend">Choose Appointment Date</FormLabel>
-                <Calendar
-                  date={date}
-                  minDate={new Date()}
-                  disabledDates={generateDisabledDates()}
-                  onChange={(item) => setDate(item)}
-                  color="#009183"
-                  supressHydrationWarning
-                />
-                <FormHelperText color="gray.700">
-                  Note: The appointment you have chosen is not a guarantee that
-                  you will be given that slot. The request will still be
-                  processed and reviewed by the medical workers administering
-                  the vaccines.
-                </FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel as="legend">Other Information</FormLabel>
-                <Textarea
-                  variant="outline"
+              <form onSubmit={handleSubmit}>
+                <FormControl isRequired>
+                  <FormLabel as="legend">Vaccination Facility</FormLabel>
+                  <Select
+                    variant="outline"
+                    border="1px"
+                    borderColor="twitter.900"
+                  >
+                    {vaccination_sites.map((site, key) => {
+                      return (
+                        <option
+                          key={key}
+                          value={site.name.toString().toLowerCase()}
+                        >
+                          {site.name}
+                        </option>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel as="legend">Choose Appointment Date</FormLabel>
+                  <Calendar
+                    date={date}
+                    minDate={new Date()}
+                    onChange={(item) => setDate(item)}
+                    color="#009183"
+                    supressHydrationWarning
+                  />
+                  <FormHelperText color="gray.700">
+                    Note: The appointment you have chosen is not a guarantee that
+                    you will be given that slot. The request will still be
+                    processed and reviewed by the medical workers administering
+                    the vaccines.
+                  </FormHelperText>
+                </FormControl>
+                <FormControl>
+                  <FormLabel as="legend">Other Information</FormLabel>
+                  <Textarea
+                    variant="outline"
+                    size="md"
+                    border="1px"
+                    borderColor="twitter.900"
+                  />
+                </FormControl>
+                <Button
+                  colorScheme="green.300"
                   size="md"
-                  border="1px"
-                  borderColor="twitter.900"
-                />
-              </FormControl>
-              <Button
-                colorScheme="green"
-                size="md"
-                width="30%"
-                aria-label="Submit"
-              >
-                Submit
-              </Button>
+                  width="30%"
+                  aria-label="Submit"
+                  type='submit'
+                >
+                  Submit
+                </Button>
+              </form>
             </Stack>
           </Box>
         </Center>
