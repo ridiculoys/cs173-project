@@ -63,9 +63,10 @@ export default function Login() {
           <Stack align="center">
             <Image
               src={uplb_logo}
-              alt={"Jenny Wilson"}
-              width="45%"
+              alt={"UPLB Logo"}
+              width="30%"
               height="auto"
+              py={"5"}
             />
             <Stack spacing={4} w={"full"} maxW={"md"} p={5}>
               <Heading fontSize={"2xl"}>Sign in to Vaccine-UP</Heading>
