@@ -71,7 +71,7 @@ export default function Request() {
               alignItems={"center"}
             >
               <Heading textAlign={["center"]} fontSize={["3xl"]}>
-                Vaccination Status
+                Request Status
               </Heading>
 
               <Box
