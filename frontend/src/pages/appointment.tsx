@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavigationBar } from "../components/NavigationBar";
 import { StatisticsCard } from "../components/StatisticsCard";
 import {
@@ -32,6 +32,8 @@ import { Footer } from "../components/Footer";
 import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import NextLink from "next/link";
+import Moment from "moment";
 
 const vaccination_sites: {
   name: string;
@@ -58,6 +60,18 @@ export default function Appointment() {
   const [date, setDate] = useState(null);
   const [facility, setFacility] = useState('');
   const [info, setInfo] = useState('');
+
+  const initialRef = useRef();
+  const finalRef = useRef();
+
+  function convert(date) {
+    if (date != null) {
+      const  mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+      const  day = ("0" + date.getDate()).slice(-2);
+      return [mnth, day, date.getFullYear()].join("-");
+    }
+    return "";
+  }
 
   return (
     <>
@@ -98,19 +112,23 @@ export default function Appointment() {
             >
               <Heading textAlign={["center"]} fontSize={["3xl"]}>
                 Request Vaccination Appointment
-                <br />
-                <br />
               </Heading>
-              <form>
                 <FormControl isRequired>
-                  <FormLabel as="legend">Vaccination Facility</FormLabel>
+                  <FormLabel as="legend" p={5}>Vaccination Facility</FormLabel>
                   <Select
+                    value={facility}
                     variant="outline"
                     border="1px"
                     borderColor="twitter.900"
                     isRequired
                     onChange={(evt) => setFacility(evt.target.value)}
                   >
+                    <option
+                      key={-1}
+                      value={"Select option"}
+                    >
+                      {"Select Option"}
+                    </option>
                     {vaccination_sites.map((site, key) => {
                       return (
                         <option
@@ -124,11 +142,12 @@ export default function Appointment() {
                   </Select>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel as="legend">Choose Appointment Date</FormLabel>
+                  <FormLabel as="legend" p={5}>Choose Appointment Date</FormLabel>
                   <Calendar
                     date={date}
+                    value={date}
                     minDate={new Date()}
-                    onChange={(item) => setDate(item)}
+                    onChange={(item) => {setDate(item)}}
                     color="#009183"
                     supressHydrationWarning
                     isRequired
@@ -141,8 +160,9 @@ export default function Appointment() {
                   </FormHelperText>
                 </FormControl>
                 <FormControl>
-                  <FormLabel as="legend">Other Information</FormLabel>
+                  <FormLabel as="legend" p={5}>Other Information</FormLabel>
                   <Textarea
+                    value={info}
                     variant="outline"
                     size="md"
                     border="1px"
@@ -151,42 +171,55 @@ export default function Appointment() {
                   />
                 </FormControl>
                 <Button
-                  colorScheme="green"
+                  colorScheme="blue"
                   size="md"
                   width="30%"
                   aria-label="Submit"
-                  type="submit"
                   onClick={onOpen}
                 >
                   Submit
                 </Button>
-              </form>
-
-              <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Confirm Request</ModalHeader>
-                    <ModalCloseButton/>
-                    <ModalBody>
-                      <Text>
-                        <b>Vaccination Facility:</b> {facility}
-                        <b>Date:</b> {date}
-                        <b>Other Information:</b> {info}
-                      </Text>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button variant="ghost">Back</Button>
-                      <Button colorScheme="green" mr={3} onClick={onClose}>Confirm</Button>
-                    </ModalFooter>
-                  </ModalContent>
-              </Modal>
             </Stack>
           </Box>
         </Center>
         <StatisticsCard />
       </Container>
       <Footer />
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Heading lineHeight={1.1} fontSize={{ base: "xl", sm: "2xl" }}>
+              Confirm Request
+            </Heading>
+          </ModalHeader>
+          <ModalCloseButton/>
+          <ModalBody pb={6}>
+            <Text>
+              <br />
+              <b>Vaccination Facility:</b> {facility.toUpperCase()}
+              <br />
+              <b>Date:</b> {convert(date)}
+              <br />
+              <b>Other Information:</b> {info.toUpperCase()}
+              <br />
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button variant="ghost" onClick={onClose}>Back</Button>
+            
+            <NextLink href="/request" passHref>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>Confirm</Button>
+            </NextLink>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

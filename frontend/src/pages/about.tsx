@@ -12,6 +12,9 @@ import { NavigationBar } from "../components/NavigationBar";
 import { Footer } from "../components/Footer";
 import kuleng_avatar from "../assets/jkbtumpalan_avatar.jpg";
 import loys_avatar from "../assets/lgltalip_avatar.jpg";
+import paolo_avatar from "../assets/pco_avatar.jpg";
+import jd_avatar from "../assets/jdvmalonjao_avatar.jpg";
+import ethan_avatar from "../assets/retpaguila_avatar.jpg";
 
 const testimonials = [
   {
@@ -28,25 +31,22 @@ const testimonials = [
     avatar: kuleng_avatar,
   },
   {
-    name: "Darcy L.",
-    role: "Movie star",
+    name: "Co, Paolo Justin",
+    role: "Member",
     content: "Fill content.",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80",
+    avatar: paolo_avatar,
   },
   {
-    name: "Daniel T.",
-    role: "Musician",
+    name: "Paguila, Ronel Ethan T.",
+    role: "Member",
     content: "Fill content.",
-    avatar:
-      "https://images.unsplash.com/photo-1606513542745-97629752a13b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
+    avatar: ethan_avatar,
   },
   {
-    name: "Daniel T.",
-    role: "Musician",
+    name: "Malonjao, John Dominic V.",
+    role: "Member",
     content: "Fill content.",
-    avatar:
-      "https://images.unsplash.com/photo-1606513542745-97629752a13b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
+    avatar: jd_avatar,
   },
 ];
 
