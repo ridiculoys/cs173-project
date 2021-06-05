@@ -20,6 +20,7 @@ import {
   Link,
   Stack,
   Image,
+  useToast,
   Text,
   Textarea,
   Spacer,
@@ -52,6 +53,7 @@ export default function Login() {
   const { toggleColorMode } = useColorMode();
   const formBackground = useColorModeValue("gray.100", "gray.700");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const initialRef = useRef();
   const finalRef = useRef();
@@ -204,7 +206,21 @@ export default function Login() {
 
           <ModalFooter>
             <NextLink href="/home" passHref>
-              <Button colorScheme="blue" mr={3} textColor="white">
+              <Button
+                colorScheme="blue"
+                mr={3}
+                textColor="white"
+                onClick={() => {
+                  toast({
+                    title: "Account verified!",
+                    description:
+                      "Medical and student information has been verified by our frontliners.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  });
+                }}
+              >
                 Submit
               </Button>
             </NextLink>
@@ -212,27 +228,6 @@ export default function Login() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* <Flex height="100vh" alignItems="center" justifyContent="center">
-        <Flex direction="column" background={formBackground} p={12} rounded={6}>
-          <Heading mb={6}>Login</Heading>
-          <Input placeholder="UP Mail" variant="filled" mb={3} type="email" />
-          <Input
-            placeholder="********"
-            variant="filled"
-            mb={6}
-            type="password"
-          />
-
-          <NextLink href="/home" passHref>
-            <Button mb={6} colorScheme="red" aria-label="Login">
-              Login
-            </Button>
-          </NextLink>
-          <Button onClick={toggleColorMode} colorScheme="green">
-            Change Light/Dark Mode
-          </Button>
-        </Flex>
-      </Flex> */}
     </Box>
   );
 }
