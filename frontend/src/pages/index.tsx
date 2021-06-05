@@ -28,6 +28,7 @@ import NextLink from "next/link";
 import { useRef } from "react";
 import { FcAbout, FcPlus, FcAssistant } from "react-icons/fc";
 import { FeatureContainer } from "../components/Features";
+import uplb_logo from "../assets/uplb-logo-name.png";
 
 const features: { icon: any; title: string; text: string }[] = [
   {
@@ -60,7 +61,12 @@ export default function Login() {
       <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
         <Flex flex={1} align={"center"} justify={"center"}>
           <Stack align="center">
-            <FeatureContainer feature_data={features} />
+            <Image
+              src={uplb_logo}
+              alt={"Jenny Wilson"}
+              width="45%"
+              height="auto"
+            />
             <Stack spacing={4} w={"full"} maxW={"md"} p={5}>
               <Heading fontSize={"2xl"}>Sign in to Vaccine-UP</Heading>
               <FormControl id="email">
@@ -103,6 +109,7 @@ export default function Login() {
                 </Button>
               </Stack>
             </Stack>
+            <FeatureContainer feature_data={features} />
           </Stack>
         </Flex>
         <Flex flex={1}>
