@@ -18,7 +18,7 @@ export default function Settings() {
     <>
       <NavigationBar />
       <Container mt="4rem" minW="full" p={2}>
-        <title>Appointment</title>
+        <title>Settings</title>
         <Box pb={10}>
           <Stack spacing={0} align={"center"}>
             <Heading>Settings</Heading>
