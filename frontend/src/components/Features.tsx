@@ -23,7 +23,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
         {icon}
       </Flex>
       <Text fontWeight={600}>{title}</Text>
-      <Text color={"gray.600"}>{text}</Text>
+      <Text>{text}</Text>
     </Stack>
   );
 };
@@ -31,7 +31,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 export const FeatureContainer = ({ feature_data }) => {
   return (
     <Box p={4} m={10}>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+      <SimpleGrid columns={{ base: 1, sm: 1, md: 3 }} spacing={["5", "10"]}>
         {feature_data.map((feature, key) => {
           return (
             <Feature

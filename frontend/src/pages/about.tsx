@@ -20,14 +20,15 @@ const testimonials = [
   {
     name: "Talip, Louise Gabrielle L.",
     role: "Member",
-    content: "Lowkey hoping an application like this exists to help the university with student vaccination. It would be accessible and efficient!",
+    content:
+      "Lowkey hoping an application like this exists to help the university with student vaccination. It would be accessible and efficient!",
     avatar: loys_avatar,
   },
   {
     name: "Tumpalan, John Karl B.",
     role: "Member",
     content:
-      "We just turned this thousand-pesos worth of tax subject from a one semester course to a one week course! Wonderful.",
+      "We can't just say \"Get Vaccinated!\" to students, that's why we also help them through this application to process their vaccination hassle-free.",
     avatar: kuleng_avatar,
   },
   {
