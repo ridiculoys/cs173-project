@@ -46,7 +46,7 @@ const testimonials = [
   {
     name: "Malonjao, John Dominic V.",
     role: "Member",
-    content: "Fill content.",
+    content: "If I were a rich man, with a million or two. I'd live in a penthouse in a room with a view. (and possibly fund this cool app).",
     avatar: jd_avatar,
   },
 ];
