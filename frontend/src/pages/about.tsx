@@ -34,7 +34,7 @@ const testimonials = [
   {
     name: "Co, Paolo Justin",
     role: "Member",
-    content: "Fill content.",
+    content: "I believe that students will gain confidence and peace of mind if there is an accessible application like this.",
     avatar: paolo_avatar,
   },
   {
